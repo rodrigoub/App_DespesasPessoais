@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MyHomePage extends StatelessWidget {
   final _transaction = [
     Transaction(
         id: 't1',
-        title: 'novo tênis de corrida',
+        title: 'Novo tênis de corrida',
         value: 310.90,
         date: DateTime.now()),
     Transaction(
@@ -52,16 +53,40 @@ class MyHomePage extends StatelessWidget {
               ..._transaction.map((tr) {
                 return Card(
                     child: Row(
-                    children: [
+                  children: [
                     Container(
-                    child: Text(tr.value.toString()),
-                  ),
-                  Column(
-                    children: [
-                      Text(tr.title),
-                      Text(tr.date.toString())
-                    ],
-                  )
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                        color: Colors.black,
+                        width: 2,
+                      )),
+                      padding: EdgeInsets.all(10),
+                      child: Text(tr.value.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.black)),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(tr.title,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, 
+                                fontSize: 16
+                              )
+                                ),
+                        Text(
+                          tr.date.toString(),
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey
+                              ),
+                        )
+                      ],
+                    )
                   ],
                 ));
               })
