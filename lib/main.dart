@@ -1,6 +1,6 @@
-import 'dart:math';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(ExpensesApp());
@@ -8,7 +8,7 @@ void main() {
 
 class ExpensesApp extends StatelessWidget {
   @override
-  Widget build(BuildContext Context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
     );
@@ -21,12 +21,13 @@ class MyHomePage extends StatelessWidget {
         id: 't1',
         title: 'Novo tênis de corrida',
         value: 310.90,
-        date: DateTime.now()),
+        date: DateTime.now()
+    ),
     Transaction(
       id: 't2',
       title: 'Compra de café',
       value: 15.0,
-      date: DateTime(2024, 9, 24),
+      date: DateTime.now(),
     )
   ];
   @override
@@ -39,7 +40,6 @@ class MyHomePage extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 154, 14, 179),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
@@ -63,7 +63,7 @@ class MyHomePage extends StatelessWidget {
                         width: 2,
                       )),
                       padding: EdgeInsets.all(10),
-                      child: Text(tr.value.toString(),
+                      child: Text('R\$ ' + tr.value.toStringAsFixed(2),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -74,16 +74,10 @@ class MyHomePage extends StatelessWidget {
                       children: [
                         Text(tr.title,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, 
-                                fontSize: 16
-                              )
-                                ),
+                                fontWeight: FontWeight.bold, fontSize: 16)),
                         Text(
-                          tr.date.toString(),
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey
-                              ),
+                          DateFormat('d MMM y hh:mm').format(tr.date),
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
                         )
                       ],
                     )
