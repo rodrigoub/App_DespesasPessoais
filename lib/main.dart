@@ -21,8 +21,7 @@ class MyHomePage extends StatelessWidget {
         id: 't1',
         title: 'Novo tênis de corrida',
         value: 310.90,
-        date: DateTime.now()
-    ),
+        date: DateTime.now()),
     Transaction(
       id: 't2',
       title: 'Compra de café',
@@ -83,7 +82,36 @@ class MyHomePage extends StatelessWidget {
                     )
                   ],
                 ));
-              })
+              }),
+              Card(
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Título',
+                        ),
+                      ),
+                      TextField(
+                          decoration: InputDecoration(
+                        labelText: 'Valor (R\$)',
+                      )),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 7),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Nova Transação',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ])
           ],
         ));
