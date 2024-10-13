@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'transaction_form.dart';
 import 'transaction_list.dart';
@@ -23,24 +22,6 @@ class _TransactionUserState extends State<TransactionUser> {
       value: 15.0,
       date: DateTime.now(),
     ),
-    Transaction(
-      id: 't2',
-      title: 'Compra #03',
-      value: 15.0,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'Compra #04',
-      value: 15.0,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't4',
-      title: 'Compra #05',
-      value: 15.0,
-      date: DateTime.now(),
-    )
   ];
   _addNewTransaction(String title, double value) {
     final newTransaction = Transaction(
