@@ -19,9 +19,14 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('Despesas Pessoais'),
-        ),
+        centerTitle: true,
+        title: Text('Despesas Pessoais'),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.add_to_photos_sharp),
+          ),
+        ],
         backgroundColor: const Color.fromARGB(255, 154, 14, 179),
       ),
       body: SingleChildScrollView(
@@ -37,6 +42,13 @@ class MyHomePage extends StatelessWidget {
           TransactionUser(),
         ]),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+        backgroundColor: const Color.fromARGB(255, 154, 14, 179),
+        foregroundColor: Colors.white,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
