@@ -13,6 +13,9 @@ class ExpensesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple, 
+      ),
     );
   }
 }
@@ -47,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _transaction.add(newTransaction);
     });
     Navigator.of(context).pop();
-    }
+  }
 
   abrirtransactionFormModal(BuildContext context) {
     showModalBottomSheet(
@@ -62,33 +65,40 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Despesas Pessoais'),
+        title: Text(
+          'Despesas Pessoais',
+          style: TextStyle(
+            color: Theme.of(context).primaryColorLight, 
+          ),
+        ),
+        backgroundColor: Theme.of(context).primaryColor, 
         actions: [
           IconButton(
-            onPressed: ()=> abrirtransactionFormModal(context),
+            onPressed: () => abrirtransactionFormModal(context),
             icon: Icon(Icons.add_to_photos_sharp),
+            color: Theme.of(context).primaryColorLight, 
           ),
         ],
-        backgroundColor: const Color.fromARGB(255, 154, 14, 179),
       ),
       body: SingleChildScrollView(
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Container(
-            child: Card(
-              color: Colors.blue,
-              child: Text('Gráfico'),
-              elevation: 5,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              child: Card(
+                color: Theme.of(context).primaryColorLight, 
+                child: Text('Gráfico'),
+                elevation: 5,
+              ),
             ),
-          ),
-          TransactionList(_transaction),
-        ]),
+            TransactionList(_transaction),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: ()=> abrirtransactionFormModal(context),
-        backgroundColor: const Color.fromARGB(255, 154, 14, 179),
-        foregroundColor: Colors.white,
+        onPressed: () => abrirtransactionFormModal(context),
+        backgroundColor: Theme.of(context).primaryColor, 
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
