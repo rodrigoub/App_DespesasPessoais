@@ -14,7 +14,22 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
-        primarySwatch: Colors.purple, 
+        primarySwatch: Colors.purple,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              titleLarge: ThemeData.light().textTheme.titleLarge?.copyWith(
+                 fontFamily: 'OpenSans',
+                 fontSize: 18,
+                 fontWeight: FontWeight.bold,
+                  ),
+               ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: ThemeData.light().textTheme.titleLarge?.copyWith(
+              fontFamily: 'OpenSans',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.purple[100]),
+        ),
       ),
     );
   }
@@ -65,18 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'Despesas Pessoais',
-          style: TextStyle(
-            color: Theme.of(context).primaryColorLight, 
-          ),
-        ),
-        backgroundColor: Theme.of(context).primaryColor, 
+        title: Text('Despesas Pessoais'),
+        backgroundColor: Theme.of(context).primaryColor,
         actions: [
           IconButton(
             onPressed: () => abrirtransactionFormModal(context),
             icon: Icon(Icons.add_to_photos_sharp),
-            color: Theme.of(context).primaryColorLight, 
+            color: Theme.of(context).primaryColorLight,
           ),
         ],
       ),
@@ -86,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Container(
               child: Card(
-                color: Theme.of(context).primaryColorLight, 
+                color: Theme.of(context).primaryColorLight,
                 child: Text('Gráfico'),
                 elevation: 5,
               ),
@@ -98,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => abrirtransactionFormModal(context),
-        backgroundColor: Theme.of(context).primaryColor, 
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
