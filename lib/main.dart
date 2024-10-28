@@ -18,11 +18,11 @@ class ExpensesApp extends StatelessWidget {
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
               titleLarge: ThemeData.light().textTheme.titleLarge?.copyWith(
-                 fontFamily: 'OpenSans',
-                 fontSize: 18,
-                 fontWeight: FontWeight.bold,
+                    fontFamily: 'OpenSans',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-               ),
+            ),
         appBarTheme: AppBarTheme(
           titleTextStyle: ThemeData.light().textTheme.titleLarge?.copyWith(
               fontFamily: 'OpenSans',
@@ -41,18 +41,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transaction = [
-    Transaction(
-        id: 't1',
-        title: 'Novo tênis de corrida',
-        value: 310.90,
-        date: DateTime.now()),
-    Transaction(
-      id: 't20',
-      title: 'Compra #02',
-      value: 15.0,
-      date: DateTime.now(),
-    ),
+  final List<Transaction> _transaction = [
+    // Transaction(
+    //     id: 't1',
+    //     title: 'Novo tênis de corrida',
+    //     value: 310.90,
+    //     date: DateTime.now()),
+    // Transaction(
+    //   id: 't20',
+    //   title: 'Compra #02',
+    //   value: 15.0,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   _addNewTransaction(String title, double value) {
@@ -94,13 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              child: Card(
-                color: Theme.of(context).primaryColorLight,
-                child: Text('Gráfico'),
-                elevation: 5,
-              ),
-            ),
+            // Container(
+            //   child: Card(
+            //     color: Theme.of(context).primaryColorLight,
+            //     child: Text('Gráfico'),
+            //     elevation: 5,
+            //   ),
+            // ),
             TransactionList(_transaction),
           ],
         ),
