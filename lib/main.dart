@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import './components/transaction_form.dart';
-import './components/transaction_list.dart';
+import 'components/chart.dart';
+import '/components/transaction_form.dart';
+import '/components/transaction_list.dart';
 import '../models/transaction.dart';
 import 'dart:math';
 
@@ -14,7 +15,7 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primaryColor: Colors.purple,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
               titleLarge: ThemeData.light().textTheme.titleLarge?.copyWith(
@@ -25,10 +26,15 @@ class ExpensesApp extends StatelessWidget {
             ),
         appBarTheme: AppBarTheme(
           titleTextStyle: ThemeData.light().textTheme.titleLarge?.copyWith(
-              fontFamily: 'OpenSans',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.purple[100]),
+                fontFamily: 'OpenSans',
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.purple,
+              ),
+          backgroundColor: Colors.black,
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.purple,
         ),
       ),
     );
@@ -42,18 +48,30 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transaction = [
-    // Transaction(
-    //     id: 't1',
-    //     title: 'Novo tênis de corrida',
-    //     value: 310.90,
-    //     date: DateTime.now()),
-    // Transaction(
-    //   id: 't20',
-    //   title: 'Compra #02',
-    //   value: 15.0,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+        id: 't0',
+        title: 'Conta Antiga',
+        value: 400.90,
+        date: DateTime.now().subtract(Duration(days: 33))),
+    Transaction(
+        id: 't1',
+        title: 'Novo tênis de corrida',
+        value: 310.90,
+        date: DateTime.now().subtract(Duration(days: 3))),
+    Transaction(
+        id: 't20',
+        title: 'Compra #02',
+        value: 15.0,
+        date: DateTime.now().subtract(Duration(days: 4))),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transaction.where((tr) {
+      return tr.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    }).toList();
+  }
 
   _addNewTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -81,12 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('Despesas Pessoais'),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         actions: [
           IconButton(
             onPressed: () => abrirtransactionFormModal(context),
             icon: Icon(Icons.add_to_photos_sharp),
-            color: Theme.of(context).primaryColorLight,
+            color: Theme.of(context).primaryColor,
           ),
         ],
       ),
@@ -94,13 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Container(
-            //   child: Card(
-            //     color: Theme.of(context).primaryColorLight,
-            //     child: Text('Gráfico'),
-            //     elevation: 5,
-            //   ),
-            // ),
+            Chart(_recentTransactions),
             TransactionList(_transaction),
           ],
         ),
@@ -108,7 +120,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => abrirtransactionFormModal(context),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor:
+            Theme.of(context).floatingActionButtonTheme.backgroundColor,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
