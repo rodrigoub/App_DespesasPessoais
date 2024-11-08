@@ -48,21 +48,21 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transaction = [
-    Transaction(
-        id: 't0',
-        title: 'Conta Antiga',
-        value: 400.90,
-        date: DateTime.now().subtract(Duration(days: 33))),
-    Transaction(
-        id: 't1',
-        title: 'Novo tênis de corrida',
-        value: 310.90,
-        date: DateTime.now().subtract(Duration(days: 3))),
-    Transaction(
-        id: 't20',
-        title: 'Compra #02',
-        value: 15.0,
-        date: DateTime.now().subtract(Duration(days: 4))),
+    // Transaction(
+    //     id: 't0',
+    //     title: 'Conta Antiga',
+    //     value: 400.90,
+    //     date: DateTime.now().subtract(Duration(days: 33))),
+    // Transaction(
+    //     id: 't1',
+    //     title: 'Novo tênis de corrida',
+    //     value: 310.90,
+    //     date: DateTime.now().subtract(Duration(days: 3))),
+    // Transaction(
+    //     id: 't20',
+    //     title: 'Compra #02',
+    //     value: 15.0,
+    //     date: DateTime.now().subtract(Duration(days: 4))),
   ];
 
   List<Transaction> get _recentTransactions {
