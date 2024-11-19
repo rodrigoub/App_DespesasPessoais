@@ -54,7 +54,7 @@ class TransactionList extends StatelessWidget {
                             child: Text(
                               'R\$${tr.value}',
                               style: TextStyle(
-                                color: Colors.white,
+                              color: Theme.of(context).secondaryHeaderColor
                               ),
                             ),
                           ),

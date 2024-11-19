@@ -29,7 +29,7 @@ class Chart extends StatelessWidget {
         'day': DateFormat.E().format(weeday)[0],
         'valor': totalSoma,
       };
-    });
+    }).reversed.toList();
   }
 
   double get _weekTotalValue {

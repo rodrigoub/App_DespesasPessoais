@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ChartBar extends StatelessWidget {
-
   final String label;
   final double value;
   final double percentage;
@@ -12,9 +11,18 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-         FittedBox(
-        child: Text('R\$${value.toStringAsFixed(2)}'),
-      ),
+        Container(
+          height: 20,
+          child: FittedBox(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.0),
+              child: Text(
+                'R\$${value.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
+          ),
+        ),
         SizedBox(height: 5),
         Container(
           height: 60,
