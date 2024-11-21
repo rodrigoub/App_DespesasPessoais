@@ -17,7 +17,7 @@ class ChartBar extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.0),
               child: Text(
-                'R\$${value.toStringAsFixed(2)}',
+                'R\$${value.toStringAsFixed(1)}',
                 style: TextStyle(fontSize: 14),
               ),
             ),
