@@ -15,22 +15,28 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
-        primaryColor: Colors.purple,
-        secondaryHeaderColor: Colors.white,
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.purple,
+            primary: Colors.purple,
+            secondary: Colors.white,
+            error: Colors.red
+            ),
+        useMaterial3: true,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
-            titleLarge: ThemeData.light().textTheme.titleLarge?.copyWith(
-                  fontFamily: 'OpenSans',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                )),
-        appBarTheme: AppBarTheme(
-          titleTextStyle: ThemeData.light().textTheme.titleLarge?.copyWith(
+              titleLarge: TextStyle(
                 fontFamily: 'OpenSans',
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.purple,
               ),
+            ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.purple,
+          ),
           backgroundColor: Colors.black,
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -62,12 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
         id: Random().nextDouble().toString(),
         title: title,
         value: value,
-        date: date
-        );
+        date: date);
     setState(() {
       _transaction.add(newTransaction);
     });
     Navigator.of(context).pop();
+  }
+
+  _removeTransaction(String id) {
+    setState(() {
+      _transaction.removeWhere(
+        (tr) => tr.id == id,
+      );
+    });
   }
 
   abrirtransactionFormModal(BuildContext context) {
@@ -98,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransactions),
-            TransactionList(_transaction),
+            TransactionList(_transaction, _removeTransaction),
           ],
         ),
       ),
