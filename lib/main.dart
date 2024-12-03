@@ -19,15 +19,14 @@ class ExpensesApp extends StatelessWidget {
             seedColor: Colors.purple,
             primary: Colors.purple,
             secondary: Colors.white,
-            error: Colors.red
-            ),
+            error: Colors.red),
         useMaterial3: true,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
               titleLarge: TextStyle(
                 fontFamily: 'OpenSans',
                 fontSize: 18,
-                fontWeight: FontWeight.bold,
+               fontWeight: FontWeight.bold,
               ),
             ),
         appBarTheme: AppBarTheme(
@@ -93,25 +92,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      centerTitle: true,
+      title: Text('Despesas Pessoais'),
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      actions: [
+        IconButton(
+          onPressed: () => abrirtransactionFormModal(context),
+          icon: Icon(Icons.add_to_photos_sharp),
+          color: Theme.of(context).primaryColor,
+        ),
+      ],
+    );
+    final availableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Despesas Pessoais'),
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        actions: [
-          IconButton(
-            onPressed: () => abrirtransactionFormModal(context),
-            icon: Icon(Icons.add_to_photos_sharp),
-            color: Theme.of(context).primaryColor,
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(_recentTransactions),
-            TransactionList(_transaction, _removeTransaction),
+            Container(
+              height: availableHeight * 0.25,
+              child: Chart(_recentTransactions),
+            ),
+            Container(
+              height: availableHeight * 0.75,
+              child: TransactionList(_transaction, _removeTransaction),
+            ),
           ],
         ),
       ),

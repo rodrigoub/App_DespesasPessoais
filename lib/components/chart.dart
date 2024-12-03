@@ -4,7 +4,6 @@ import 'package:expenses/models/transaction.dart';
 import 'chart_bar.dart';
 
 class Chart extends StatelessWidget {
-
   final List<Transaction> recentTransactions;
 
   Chart(this.recentTransactions);
@@ -37,26 +36,34 @@ class Chart extends StatelessWidget {
       return accum + (itm['valor'] as double);
     });
   }
-  
+
   Widget build(BuildContext context) {
-  return Card(
-    elevation: 7,
-    margin: EdgeInsets.all(20),
-    child: Padding(
-      padding: const EdgeInsets.all(5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: groupedTransactions.map((trt) {
-          return Expanded(
-            child: ChartBar(
-              label: trt['day'] as String, 
-              value: trt['valor'] as double, 
-              percentage: _weekTotalValue == 0? 0 : (trt['valor'] as double) / _weekTotalValue,
-            ),
-          );
-        }).toList(),
+    return Card(
+      elevation: 7,
+      margin: EdgeInsets.symmetric(
+        horizontal: 15,
+        vertical: 10,
       ),
-    ),
-  );
-}
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 15,
+        ),
+        child: Row(
+          children: groupedTransactions.map((trt) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                label: trt['day'] as String,
+                value: trt['valor'] as double,
+                percentage: _weekTotalValue == 0
+                    ? 0
+                    : (trt['valor'] as double) / _weekTotalValue,
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
 }
