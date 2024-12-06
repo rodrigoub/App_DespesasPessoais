@@ -11,32 +11,37 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return transactions.isEmpty
-        ? Column(
-            children: [
-              SizedBox(
-                height: 20,
+        ? LayoutBuilder(builder: (ctx, Constraints) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Nenhuma Transação Cadastrada.',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  SizedBox(
+                    height: 60,
+                  ),
+                  Container(
+                    height: Constraints.maxHeight * 0.50,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                'Nenhuma Transação Cadastrada.',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 200,
-                child: Image.asset(
-                  'assets/images/waiting.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-          )
+            );
+          })
         : ListView.builder(
             itemCount: transactions.length,
             itemBuilder: (ctx, index) {
               final tr = transactions[index];
-    
+
               return Card(
                 elevation: 5,
                 margin: EdgeInsets.symmetric(
@@ -53,8 +58,7 @@ class TransactionList extends StatelessWidget {
                         child: Text(
                           'R\$${tr.value}',
                           style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary
-                          ),
+                              color: Theme.of(context).colorScheme.secondary),
                         ),
                       ),
                     ),
