@@ -1,9 +1,12 @@
+import 'dart:math';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
 import 'components/chart.dart';
 import '/components/transaction_form.dart';
 import '/components/transaction_list.dart';
 import '../models/transaction.dart';
-import 'dart:math';
 
 void main() {
   runApp(ExpensesApp());
@@ -93,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    bool isLandscape = mediaQuery.orientation == Orientation.landscape;
     final appBar = AppBar(
       centerTitle: true,
       title: Text('Despesas Pessoais'),
@@ -111,14 +115,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         IconButton(
           onPressed: () => abrirtransactionFormModal(context),
-          icon: Icon(Icons.add_to_photos_sharp),
+          icon: Icon(Icons.add),
           color: Theme.of(context).colorScheme.primary,
         ),
       ],
     );
-    final availableHeight = MediaQuery.of(context).size.height -
+    final availableHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
+        mediaQuery.padding.top;
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -129,7 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
             //     mainAxisAlignment: MainAxisAlignment.center,
             //     children: [
             //       Text('Exibir Gráfico'),
-            //       Switch(
+            //       Switch.adaptive(
+            //         activeColor: Theme.of(context).colorScheme.primary,
             //         value: _showChart,
             //         onChanged: (value) {
             //           setState(() {
@@ -152,12 +157,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => abrirtransactionFormModal(context),
-        backgroundColor:
-            Theme.of(context).floatingActionButtonTheme.backgroundColor,
-      ),
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => abrirtransactionFormModal(context),
+              backgroundColor:
+                  Theme.of(context).floatingActionButtonTheme.backgroundColor,
+            ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
