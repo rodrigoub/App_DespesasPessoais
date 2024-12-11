@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'adaptative_widgets/adaptative_button.dart';
+import 'adaptative_widgets/adaptative_textfield.dart';
+import 'adaptative_widgets/adaptative_date_picker.dart';
 
 class TransactionForm extends StatefulWidget {
   final void Function(String, double, DateTime) Submit;
@@ -25,94 +28,46 @@ class _TransactionFormState extends State<TransactionForm> {
     widget.Submit(tittle, value, _selectedDate);
   }
 
-  _showDatePicker() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2019),
-      lastDate: DateTime.now(),
-    ).then((pickedDate) {
-      if (pickedDate == null) {
-        return;
-      }
-      setState(() {
-        _selectedDate = pickedDate;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Card(
         elevation: 5,
         child: Padding(
-          padding: EdgeInsets.only(
-            top: 10,
-            right: 10,
-            left: 10,
-            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Column(children: [
-            TextField(
-              controller: _tittleControler,
-              onSubmitted: (_) => _submitForm(),
-              decoration: InputDecoration(
-                labelText: 'Título',
-              ),
+            padding: EdgeInsets.only(
+              top: 10,
+              right: 10,
+              left: 10,
+              bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
             ),
-            TextField(
+            child: Column(children: [
+              AdaptativeTextfield(
+                controller: _tittleControler,
+                label: 'Título',
+                onSubmitted: (_) => _submitForm(),
+              ),
+              AdaptativeTextfield(
                 controller: _valueControler,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
+                label: 'Valor (R\$)',
                 onSubmitted: (_) => _submitForm(),
-                decoration: InputDecoration(
-                  labelText: 'Valor (R\$)',
-                )),
-            Container(
-              height: 70,
-              padding: EdgeInsets.symmetric(horizontal: 14),
-              child: Row(
+              ),
+              AdaptativeDatePicker(
+                selectedDate: _selectedDate,
+                ondateChanged: (newData) {
+                  setState(() {
+                    _selectedDate = newData;
+                  });
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Expanded(
-                    child: Text(
-                      'Data Selecionada:  ${_selectedDate.toString().split(' ')[0]}',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  TextButton(
-                      child: Text(
-                        'Selecionar Data',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: _showDatePicker,
-                      style: TextButton.styleFrom(
-                        foregroundColor: Theme.of(context).primaryColor,
-                      )),
+                  AdaptativeButton(
+                      label: 'Nova Transação', onPressed: _submitForm),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  child: ElevatedButton(
-                    onPressed: _submitForm,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      foregroundColor: Theme.of(context).secondaryHeaderColor,
-                    ),
-                    child: Text(
-                      'Nova Transação',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ]),
-        ),
+            ])),
       ),
     );
   }
