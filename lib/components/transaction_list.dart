@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
-import 'package:intl/intl.dart';
+import 'transaction.item.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -16,14 +16,14 @@ class TransactionList extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
                     'Nenhuma Transação Cadastrada.',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 60,
                   ),
                   Container(
@@ -37,60 +37,25 @@ class TransactionList extends StatelessWidget {
               ),
             );
           })
-        : ListView.builder(
-            itemCount: transactions.length,
-            itemBuilder: (ctx, index) {
-              final tr = transactions[index];
-
-              return Card(
-                elevation: 5,
-                margin: EdgeInsets.symmetric(
-                  vertical: 7,
-                  horizontal: 5,
-                ),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(6),
-                      child: FittedBox(
-                        child: Text(
-                          'R\$${tr.value}',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary),
-                        ),
-                      ),
-                    ),
-                  ),
-                  title: Text(
-                    tr.title,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  subtitle: Text(
-                    DateFormat('d MMM y').format(tr.date),
-                  ),
-                  trailing: MediaQuery.of(context).size.width > 480
-                      ? TextButton.icon(
-                          icon: Icon(Icons.delete),
-                          label: Text('Excluir'),
-                          style: TextButton.styleFrom(
-                              foregroundColor:
-                                  Theme.of(context).colorScheme.error),
-                          onPressed: () {
-                            onRemove(tr.id);
-                          },
-                        )
-                      : IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Theme.of(context).colorScheme.error,
-                          onPressed: () {
-                            onRemove(tr.id);
-                          },
-                        ),
-                ),
-              );
-            },
+        :
+        // ListView(
+        //     children: transactions.map((tr) {
+        //     return TransactionItem(
+        //       key: ValueKey(tr.id),
+        //       tr: tr,
+        //       onRemove: onRemove,
+        //     );
+        //   }).toList());
+    ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (ctx, index) {
+          final tr = transactions[index];
+          return TransactionItem(
+            key: GlobalObjectKey(tr),
+            tr: tr,
+            onRemove: onRemove,
           );
+        },
+      );
   }
 }
